@@ -56,7 +56,8 @@ final de esta máquina.
 Para empezar, veremos un poco que nos aparece si la iniciamos, si es un
 sistema operativo Linux, Windows etc.
 
-<img width="886" height="664" alt="image" src="https://github.com/user-attachments/assets/713c94c2-3499-465e-8ad1-4a598672ff2b" />
+<img width="886" height="664" alt="image" src="https://github.com/user-attachments/assets/0616fcaa-177f-4849-80eb-e7911363a4cc" />
+
 
 Como podemos nos da la IP de la máquina y vemos además que nos pide un
 acceso donde no conocemos ni el usuario y la contraseña, podríamos
@@ -74,7 +75,7 @@ sin embargo podemos usar cualquier otra que queramos.
 
 Vamos a realizar la enumeración con el siguiente comando:
 
-<img width="485" height="46" alt="image" src="https://github.com/user-attachments/assets/71fdf2c7-5d22-42b8-9654-7446a9aa4d31" />
+<img width="485" height="46" alt="image" src="https://github.com/user-attachments/assets/ac231de1-4f03-440c-9f1d-a68a49639c14" />
 
 Explico los dos flags para que no solo se demuestre que esto es un copia
 y pega de otras guías si no que se ha hecho un aprendizaje de lo que se
@@ -97,7 +98,7 @@ está utilizando (esto se hará cada vez que haya algo así).
 
 Una vez explicado seguimos, una vez lo aplicamos vemos lo siguiente:
 
-<img width="789" height="271" alt="image" src="https://github.com/user-attachments/assets/ef9a43bc-4fb1-45f3-8636-79926d4ea6a2" />
+<img width="789" height="271" alt="image" src="https://github.com/user-attachments/assets/22b81aa8-491a-42e3-8548-75e01e16176a" />
 
 Como vemos tenemos dos puertos activos tras el escaneo, explico ambos:
 
@@ -107,7 +108,7 @@ Como vemos tenemos dos puertos activos tras el escaneo, explico ambos:
     un usuario Anonymous, sin embargo, también cabe la posibilidad de
     que tenga contraseña.
 
-<img width="598" height="195" alt="image" src="https://github.com/user-attachments/assets/1a295912-9b05-40d3-b4fd-f98e925bafed" />
+<img width="598" height="195" alt="image" src="https://github.com/user-attachments/assets/f80d84ff-a0cf-4e62-8ea1-c653295a93d3" />
 
 Como vemos no tenemos la password por lo que es poco útil.
 
@@ -117,14 +118,14 @@ Como vemos no tenemos la password por lo que es poco útil.
 
 ## Análisis de Aplicación Web {#analisis-de-aplicacion-web}
 
-<img width="886" height="555" alt="image" src="https://github.com/user-attachments/assets/08ae75c4-28d8-4664-b7c2-78115e0a7306" />
+<img width="886" height="555" alt="image" src="https://github.com/user-attachments/assets/6077381b-56ba-492c-98cc-4f1403b43b2c" />
 
 Vemos que al entrar a la web (no hace falta indicar el puerto porque es
 el por defecto). Vemos que tenemos un directorio abierto por lo que no
 existe un archivo index en general. Lo que tenemos es un directorio
 site, veamos que pasa si lo pulsamos.
 
-<img width="886" height="543" alt="image" src="https://github.com/user-attachments/assets/b73b5771-6115-4aa7-9362-e8a554fb0294" />
+<img width="886" height="543" alt="image" src="https://github.com/user-attachments/assets/d9af948f-5dde-41cb-8e14-f68ae26baa9f" />
 
 Vemos que tenemos esta aplicación web donde tenemos una plantilla en
 Bootstrap, digamos que es una especie de blog. La clave aquí está en
@@ -137,7 +138,7 @@ o View Source** de la web ya que esta herramienta interna da acceso a
 veces a recursos que a simple vista no se ven. Probemos a ver que vemos
 con esto:
 
-<img width="886" height="554" alt="image" src="https://github.com/user-attachments/assets/1836cd2b-c98a-4da5-880f-5da155b70820" />
+<img width="886" height="554" alt="image" src="https://github.com/user-attachments/assets/0232d757-e7cc-4ac0-84c0-46c2fdd639fd" />
 
 Nos percatamos de algo curioso, gracias a un error del usuario
 identificamos que el botón de búsqueda usa el lenguaje PHP (fichero
@@ -152,7 +153,7 @@ deben ver.
 Si probamos a usar este php en la barra de búsqueda enviaremos una
 petición GET para traer las búsquedas del blog.
 
-<img width="886" height="173" alt="image" src="https://github.com/user-attachments/assets/e24dc3bc-e583-4863-8288-f32945ce319f" />
+<img width="886" height="173" alt="image" src="https://github.com/user-attachments/assets/afc9845e-6fa8-4cd5-bcad-e1727a0dcde3" />
 
 Como vemos al buscar trae una especie de lista, hay una vulnerabilidad
 muy utilizada contra este tipo de sistemas llamada **LFI (Local File
@@ -166,13 +167,13 @@ resultado:
 
 ## Fuzzing de Directorios {#fuzzing-de-directorios}
 
-<img width="886" height="217" alt="image" src="https://github.com/user-attachments/assets/20a9c079-7c0e-4d6c-91c3-c71c3fb8411b" />
+<img width="886" height="217" alt="image" src="https://github.com/user-attachments/assets/c62e018f-3acf-4d5b-aa39-f45ba973073b" />
 
 Podemos listar todos los ficheros del directorio web y con ello vemos el
 directorio wordpress, el cual estaba oculto, veamos que fichero pueden
 contener.
 
-<img width="886" height="255" alt="image" src="https://github.com/user-attachments/assets/4df911ca-4996-4a76-9908-e17065b88e15" />
+<img width="886" height="255" alt="image" src="https://github.com/user-attachments/assets/45099c56-e8d4-4fcc-bcdd-f7f20e4dc93b" />
 
 Vemos que contiene el index.html y un script en PHP llamado config.php,
 este script se suele utilizar para la configuración de wordpress y es un
@@ -181,14 +182,14 @@ tanto fuera como del contenido, pero vemos que los permisos están de
 lectura para todo el mundo por lo que podremos verlo y con ello
 encontramos lo siguiente:
 
-<img width="886" height="102" alt="image" src="https://github.com/user-attachments/assets/609c0a62-4250-4f8b-ba8c-d545c0c495d4" />
+<img width="886" height="102" alt="image" src="https://github.com/user-attachments/assets/96bf58d2-1751-46ac-952d-711d0c87bff1" />
 
 Nos devuelve un error de conexión porque requiere la contraseña del
 sistema como tal dándonos un usuario pero una contraseña necesaria, pero
 como la web es vulnerable a LFI podremos hacer un cat y mostrar el
 contenido saltándonos este paso.
 
-<img width="886" height="291" alt="image" src="https://github.com/user-attachments/assets/51efa7d3-ffa0-4e88-9261-8061d05b9d59" />
+<img width="886" height="291" alt="image" src="https://github.com/user-attachments/assets/392ec6ae-b3dd-4616-a4b3-74beeb8928ad" />
 
 Este fichero nos ha proporcionado la clave para el servidor SQL que
 corre detrás de la máquina, sin embargo, esto no nos sirve para la
@@ -199,17 +200,17 @@ estar las páginas web Apache (en `/var/www/html`) y dentro contiene la
 web, podemos mirar este directorio ya que a veces contiene otro tipo de
 ficheros aparte del wordpress. Con esto observamos:
 
-<img width="886" height="372" alt="image" src="https://github.com/user-attachments/assets/58260dd8-e175-4509-9198-230fd785e8b8" />
+<img width="886" height="372" alt="image" src="https://github.com/user-attachments/assets/ed01bd4a-1220-42ec-ae69-c004d4087514" />
 
 Accedemos a www/html
 
-<img width="886" height="193" alt="image" src="https://github.com/user-attachments/assets/5e8be96f-efe2-44a7-ac8e-3f436b722743" />
+<img width="886" height="193" alt="image" src="https://github.com/user-attachments/assets/6fcd08a2-1c38-47d6-8b43-37452c94ca85" />
 
 Averiguamos un fichero .backup (de copias de seguridad) en la ruta de
 nuestro site oculto a simple vista pero gracias a LFI podemos ver que
 está dentro del sistema. Con ello si lo abrimos:
 
-<img width="886" height="258" alt="image" src="https://github.com/user-attachments/assets/7b652b01-4fe6-4159-ac50-43a87bcd5c45" />
+<img width="886" height="258" alt="image" src="https://github.com/user-attachments/assets/1816553c-6522-4125-afa9-919ce96675d5" />
 
 Nos proporciona la clave y el usuario jangow01 de SQL, si seguimos una
 cierta lógica podríamos entender que podría incluso servirnos para
@@ -223,18 +224,18 @@ También hemos aplicado un análisis con Hydra donde pasando el usuario
 con -l y password con -p comprobamos que en efecto es la contraseña del
 usuario.
 
-<img width="886" height="370" alt="image" src="https://github.com/user-attachments/assets/89d7ab6e-8eef-4fa7-93b5-cf8527817dac" />
+<img width="886" height="370" alt="image" src="https://github.com/user-attachments/assets/f0ff1974-b905-4214-84f1-55fdf8da0940" />
 
 Y con esto accedemos con FTP y comprobamos en efecto que estamos dentro.
 
-<img width="600" height="254" alt="image" src="https://github.com/user-attachments/assets/62e26e42-f3a9-4a38-b507-ab7631189284" />
+<img width="600" height="254" alt="image" src="https://github.com/user-attachments/assets/3aea4d4f-d973-4ee0-a851-da543c254a8c" />
 
 Antes también comprobamos que jangow01 en efecto es el usuario de la
 máquina.
 
-<img width="886" height="224" alt="image" src="https://github.com/user-attachments/assets/74b7bf1f-9337-488e-843f-31e205c7298c" />
+<img width="886" height="224" alt="image" src="https://github.com/user-attachments/assets/6f83b876-208c-48c3-834d-23d47611f19c" />
 
-<img width="798" height="429" alt="image" src="https://github.com/user-attachments/assets/815bac4c-3e8b-4000-af44-bee1035ce3b3" />
+<img width="798" height="429" alt="image" src="https://github.com/user-attachments/assets/9dce6422-2383-49c5-85f4-2b80efae1944" />
 
 Con esto obtenemos la primera flag que está dentro del usuario.
 
@@ -249,13 +250,13 @@ Podemos realizarlo de varias formas:
     encontrada en internet y que el servidor ejecute la misma al usar
     LFI.
 
-<img width="886" height="453" alt="image" src="https://github.com/user-attachments/assets/f15bbfb4-5599-4fd2-9303-a319e6aa5682" />
+<img width="886" height="453" alt="image" src="https://github.com/user-attachments/assets/99a745e1-628a-4561-8bd2-136e5d0e5b6d" />
 
 Descargando por ejemplo esta podríamos cambiar la IP y el puerto para
 realizar la conexión, sin embargo, no tenemos suficientes permisos como
 jangow para subirla, como podemos ver aquí.
 
-<img width="873" height="471" alt="image" src="https://github.com/user-attachments/assets/653420f3-be14-4793-8862-6493982c68a0" />
+<img width="873" height="471" alt="image" src="https://github.com/user-attachments/assets/0cef8973-a649-4760-834e-2ac97003e190" />
 
 No puede crear el fichero.
 
@@ -289,11 +290,11 @@ siguiente comando:
 -   `2>/dev/null` → ignora mensajes de error por falta de permisos en
     directorios.
 
-<img width="875" height="525" alt="image" src="https://github.com/user-attachments/assets/6ff11f32-57b4-4099-a375-8e5983e36fe8" />
+<img width="875" height="525" alt="image" src="https://github.com/user-attachments/assets/81dde255-3270-4e89-a932-6c9ed0f02546" />
 
 Veamos los permisos de dicho binario.
 
-<img width="671" height="88" alt="image" src="https://github.com/user-attachments/assets/4542e3a9-255b-42cc-a684-a05617f277d3" />
+<img width="671" height="88" alt="image" src="https://github.com/user-attachments/assets/375c92fe-7811-45fd-beb3-f88a752e2afa" />
 
 Tiene los permisos suficientes.
 
@@ -313,21 +314,21 @@ Para poder compilarlo (ya que está hecho en C) me lo llevaré con FTP a
 la máquina al directorio `/tmp` donde el usuario simple tiene permisos
 para copiar y pegar ficheros.
 
-<img width="886" height="353" alt="image" src="https://github.com/user-attachments/assets/68536466-423b-47ca-af5b-42e1a509e829" />
+<img width="886" height="353" alt="image" src="https://github.com/user-attachments/assets/660670e8-91ae-4a09-a6dd-7fe262fe93b9" />
 
 Metemos finalmente el exploit en la máquina objetivo, ahora lo
 compilaremos desde la máquina objetivo ya comprometida.
 
-<img width="886" height="338" alt="image" src="https://github.com/user-attachments/assets/32911a2f-558a-4479-ac00-b128879481ec" />
+<img width="886" height="338" alt="image" src="https://github.com/user-attachments/assets/5354a029-d8ce-4941-82b8-1dd3f6a7f5dd" />
 
 Finalmente tenemos nuestro exploit y ya solo queda ejecutarlo.
 
-<img width="708" height="141" alt="image" src="https://github.com/user-attachments/assets/41a699da-6a26-4ec4-ae4c-542aed80b52f" />
+<img width="708" height="141" alt="image" src="https://github.com/user-attachments/assets/d5df65d5-bbb1-44a2-a74f-c68216bfa92a" />
 
 Finalmente somos el usuario root escalando privilegios de la máquina y
 ahora podemos acceder a su directorio para obtener la flag final.
 
-<img width="886" height="644" alt="image" src="https://github.com/user-attachments/assets/8fb2d996-cad1-4a89-8e23-99eeaabaa1bc" />
+<img width="886" height="644" alt="image" src="https://github.com/user-attachments/assets/1cae97be-a429-437c-9770-2a0ff42b6e91" />
 
 ## Conclusiones {#conclusiones}
 
