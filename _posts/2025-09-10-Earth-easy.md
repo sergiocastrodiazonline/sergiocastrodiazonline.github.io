@@ -40,13 +40,21 @@ Una vez realizado nos muestra los dispositivos conectados, gracias al saber que 
 
 <img width="778" height="241" alt="image" src="https://github.com/user-attachments/assets/16beeed2-4fb7-46d8-b26a-c8f5224777fc" />
 
-Aplicaremos ahora un nmap sobre esta IP con el siguiente comando, donde he descubierto cosas interesantes para Nmap además de lo aprendido la otra vez.
+Aplicaremos ahora un nmap sobre esta IP para ver los puertos abiertos con el siguiente comando, donde he descubierto cosas interesantes para Nmap además de lo aprendido la otra vez.
+
+```
+nmap -sV -sC -p- -o earth.txt IP
+```
+
+Explico los nuevos parámetros:
+
+-sC: Se le indica a nmap que use solo los scripts por defecto (ya que puedes añadir scripts extras)-
+
+-p-: Se especifica que se buscarán todos los puertos, si se quiere un rango usar -p 600-1000 por ejemplo del 6000 al 10000 o -p-1000 que permite escanear solo los primeros 1000 puertos.
+
+-o: Manda la salida del comando a un fichero de salida, útil para repasar información ya obtenida o para otro software que permita usar estos datos para profundizar en análisis.
+
 
 
 
 ## Conclusiones {#conclusiones}
-
-
-
-
-
