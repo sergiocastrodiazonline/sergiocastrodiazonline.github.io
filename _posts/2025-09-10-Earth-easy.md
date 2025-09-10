@@ -48,7 +48,7 @@ nmap -sV -sC -p- -o earth.txt IP
 
 Explico los nuevos parámetros:
 
--sC: Se le indica a nmap que use solo los scripts por defecto (ya que puedes añadir scripts extras)-
+-sC: Se le indica a nmap que use solo los scripts por defecto (ya que puedes añadir scripts extras).
 
 -p-: Se especifica que se buscarán todos los puertos, si se quiere un rango usar -p 600-1000 por ejemplo del 6000 al 10000 o -p-1000 que permite escanear solo los primeros 1000 puertos.
 
