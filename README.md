@@ -1,33 +1,29 @@
-# Chirpy Starter
+¡Bienvenido(a)! 🎯
+Este repositorio contiene writeups (análisis paso a paso) de máquinas vulnerables y retos CTF. Está pensado para ser claro, replicable y útil tanto para quien escribe como para quien aprende.
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+📚 ¿Qué hay aquí?
 
-When installing the [**Chirpy**][chirpy] theme through [RubyGems.org][gem], Jekyll can only read files in the folders
-`_data`, `_layouts`, `_includes`, `_sass` and `assets`, as well as a small part of options of the `_config.yml` file
-from the theme's gem. If you have ever installed this theme gem, you can use the command
-`bundle info --path jekyll-theme-chirpy` to locate these files.
+machines/ — Writeups de máquinas vulnerables (HTB, TryHackMe, VMs personales).
 
-The Jekyll team claims that this is to leave the ball in the user’s court, but this also results in users not being
-able to enjoy the out-of-the-box experience when using feature-rich themes.
+ctf/ — Writeups de retos CTF (pwn, web, crypto, reversing, forensics...).
 
-To fully use all the features of **Chirpy**, you need to copy the other critical files from the theme's gem to your
-Jekyll site. The following is a list of targets:
+assets/ — Capturas de pantalla, diagramas y ficheros de apoyo.
 
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
-```
+README.md — Este archivo.
 
-To save you time, and also in case you lose some files while copying, we extract those files/configurations of the
-latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so that you can start writing in minutes.
+🎯 Objetivos del repo
 
-## Usage
+Documentar pasos reproducibles para resolver máquinas y retos.
 
-Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
+Enseñar técnicas, comandos y razonamiento (no solo el flag).
+
+Mantener un formato uniforme para facilitar lectura y búsqueda.
+
+Fomentar contribuciones claras y educativas.
+
+Espero disfruteis el repositorio y aprendaís tanto como yo
+
+- Plantilla Realizada con Chirpy y Jekyll
 
 ## Contributing
 
