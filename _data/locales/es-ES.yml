@@ -1,0 +1,74 @@
+# ----- Etiquetas comunes -----
+layout:
+  post: Publicación
+  category: Categoría
+  tag: Etiqueta
+
+# Las pestañas de la barra lateral
+tabs:
+  # formato: <nombre_archivo_sin_extension>: <valor>
+  home: Inicio
+  categories: Categorías
+  tags: Etiquetas
+  archives: Archivos
+  about: Acerca de
+
+# Texto mostrado en la barra de búsqueda y resultados
+search:
+  hint: buscar
+  cancel: Cancelar
+  no_results: ¡Ups! No se han encontrado resultados.
+
+panel:
+  lastmod: Actualizado recientemente
+  trending_tags: Etiquetas en tendencia
+  toc: Contenido
+
+copyright:
+  # Mostrado al final de la publicación
+  license:
+    template: Esta publicación está licenciada bajo :LICENSE_NAME por el autor.
+    name: CC BY 4.0
+    link: https://creativecommons.org/licenses/by/4.0/
+  # Mostrado en el pie de página
+  brief: Algunos derechos reservados.
+  verbose: >-
+    Excepto donde se indique lo contrario, las publicaciones de este sitio están
+    licenciadas bajo la licencia Creative Commons Attribution 4.0 International
+    (CC BY 4.0) por el autor.
+
+meta: Desarrollado con :PLATFORM y el tema :THEME.
+
+not_found:
+  statment: Lo sentimos, hemos perdido esa URL o apunta a algo que no existe.
+  hint_template: :HEAD_BAK para intentar encontrarlo de nuevo, o búscalo en la :ARCHIVES_PAGE.
+  head_back: Volver al inicio
+  archives_page: Página de archivos
+
+# ----- Etiquetas relacionadas con publicaciones -----
+post:
+  written_by: Por
+  posted: Publicado
+  updated: Actualizado
+  words: palabras
+  pageview_measure: visitas
+  read_time:
+    unit: min
+    prompt: de lectura
+  relate_posts: Lecturas recomendadas
+  share: Compartir
+  button:
+    next: Más reciente
+    previous: Más antiguo
+    copy_code:
+      succeed: ¡Copiado!
+    share_link:
+      title: Copiar enlace
+      succeed: ¡Enlace copiado con éxito!
+  # aviso de publicación fijada en la página de inicio
+  pin_prompt: Fijado
+
+# Página de categorías
+categories:
+  category_measure: categorías
+  post_measure: publicaciones
