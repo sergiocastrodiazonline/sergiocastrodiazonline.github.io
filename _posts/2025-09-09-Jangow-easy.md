@@ -8,18 +8,6 @@ tags: [nmap,exploits,suid]
 
 [Link Máquina](https://www.vulnhub.com/entry/jangow-101,754/)
 
-# Contenido
-
-- [Introducción](#introduccion)
-- [Resumen General de Conceptos](#resumen-general-de-conceptos)
-- [Primer Vistazo a la Máquina](#primer-vistazo-a-la-maquina)
-- [Enumeración de los Puertos](#enumeracion-de-los-puertos)
-- [Análisis de Aplicación Web](#analisis-de-aplicacion-web)
-- [Fuzzing de Directorios](#fuzzing-de-directorios)
-- [Escalado de Privilegios](#escalado-de-privilegios)
-- [Conclusiones](#conclusiones)
-
-
 ## Introducción {#introduccion}
 
 Esta es mi primera resolución de CTF, Máquina o Aplicación vulnerable
