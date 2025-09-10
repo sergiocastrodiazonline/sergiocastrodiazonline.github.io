@@ -58,7 +58,6 @@ sistema operativo Linux, Windows etc.
 
 <img width="886" height="664" alt="image" src="https://github.com/user-attachments/assets/0616fcaa-177f-4849-80eb-e7911363a4cc" />
 
-
 Como podemos nos da la IP de la máquina y vemos además que nos pide un
 acceso donde no conocemos ni el usuario y la contraseña, podríamos
 suponer que el usuario podría ser jangow01 pero normalmente no sería
@@ -76,6 +75,10 @@ sin embargo podemos usar cualquier otra que queramos.
 Vamos a realizar la enumeración con el siguiente comando:
 
 <img width="485" height="46" alt="image" src="https://github.com/user-attachments/assets/ac231de1-4f03-440c-9f1d-a68a49639c14" />
+
+```
+nmap -sS -sV IP
+```
 
 Explico los dos flags para que no solo se demuestre que esto es un copia
 y pega de otras guías si no que se ha hecho un aprendizaje de lo que se
@@ -169,6 +172,9 @@ resultado:
 
 <img width="886" height="217" alt="image" src="https://github.com/user-attachments/assets/c62e018f-3acf-4d5b-aa39-f45ba973073b" />
 
+```
+busque.php?buscar=ls -la
+```
 Podemos listar todos los ficheros del directorio web y con ello vemos el
 directorio wordpress, el cual estaba oculto, veamos que fichero pueden
 contener.
@@ -188,6 +194,10 @@ Nos devuelve un error de conexión porque requiere la contraseña del
 sistema como tal dándonos un usuario pero una contraseña necesaria, pero
 como la web es vulnerable a LFI podremos hacer un cat y mostrar el
 contenido saltándonos este paso.
+
+```
+cat wordpress/config.php
+```
 
 <img width="886" height="291" alt="image" src="https://github.com/user-attachments/assets/392ec6ae-b3dd-4616-a4b3-74beeb8928ad" />
 
@@ -281,7 +291,7 @@ Algunos son el etc/passwd sin embargo el que nos interesa para escalar
 de privilegios es el pkexec. Para listar los binarios usamos el
 siguiente comando:
 
-`find / -perm -4000 -type f 2>/dev/null`
+```find / -perm -4000 -type f 2>/dev/null```
 
 -   `-perm -4000` → busca archivos con el bit SUID.
 
@@ -318,6 +328,8 @@ para copiar y pegar ficheros.
 
 Metemos finalmente el exploit en la máquina objetivo, ahora lo
 compilaremos desde la máquina objetivo ya comprometida.
+
+```gcc fichero.c -o nombre```
 
 <img width="886" height="338" alt="image" src="https://github.com/user-attachments/assets/5354a029-d8ce-4941-82b8-1dd3f6a7f5dd" />
 
