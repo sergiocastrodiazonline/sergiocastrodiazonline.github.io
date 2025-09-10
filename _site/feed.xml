@@ -1,0 +1,79 @@
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://localhost:4000/</id>
+  <title>S3rC4D1</title>
+  <subtitle>Website for my CTF, Writeups &amp; Vuln Apps solutions</subtitle>
+  <updated>2025-09-10T12:27:30+01:00</updated>
+  <author>
+    <name>Sergi Castro</name>
+    <uri>http://localhost:4000/</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="es-ES"
+    href="http://localhost:4000/"/>
+  <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
+  <rights> © 2025 Sergi Castro </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>Writeup - Jangow Vulnhub | Sergio Castro</title>
+    <link href="http://localhost:4000/posts/Earth-easy/" rel="alternate" type="text/html" title="Writeup - Jangow Vulnhub | Sergio Castro" />
+    <published>2025-09-09T00:00:00+01:00</published>
+  
+    <updated>2025-09-09T00:00:00+01:00</updated>
+  
+    <id>http://localhost:4000/posts/Earth-easy/</id>
+    <content type="text/html" src="http://localhost:4000/posts/Earth-easy/" />
+    <author>
+      <name>Sergi Castro</name>
+    </author>
+
+  
+    
+    <category term="Vulnhub" />
+    
+    <category term="Vulnhub-Linux" />
+    
+    <category term="Vulnhub-Easy" />
+    
+  
+
+  <summary>Link Máquina  Contenido          Indice           Introducción           Resumen General de Conceptos           Primer Vistazo a la Máquina           Enumeración de los Puertos           Análisis de Aplicación Web           Fuzzing de Directorios           Escalado de Privilegios           Conclusiones      Introducción  Esta es mi primera resolución de CTF, Máquina o Aplicación vulnerable para...</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Writeup - Jangow Vulnhub | Sergio Castro</title>
+    <link href="http://localhost:4000/posts/Jangow-easy/" rel="alternate" type="text/html" title="Writeup - Jangow Vulnhub | Sergio Castro" />
+    <published>2025-09-09T00:00:00+01:00</published>
+  
+    <updated>2025-09-09T00:00:00+01:00</updated>
+  
+    <id>http://localhost:4000/posts/Jangow-easy/</id>
+    <content type="text/html" src="http://localhost:4000/posts/Jangow-easy/" />
+    <author>
+      <name>Sergi Castro</name>
+    </author>
+
+  
+    
+    <category term="Vulnhub" />
+    
+    <category term="Vulnhub-Linux" />
+    
+    <category term="Vulnhub-Easy" />
+    
+  
+
+  <summary>Link Máquina  Contenido          Indice           Introducción           Resumen General de Conceptos           Primer Vistazo a la Máquina           Enumeración de los Puertos           Análisis de Aplicación Web           Fuzzing de Directorios           Escalado de Privilegios           Conclusiones      Introducción  Esta es mi primera resolución de CTF, Máquina o Aplicación vulnerable para...</summary>
+
+  </entry>
+
+</feed>
+
+
