@@ -13,6 +13,7 @@ tags: [nmap,exploits,netdiscover,]
 - [Introducción](#introduccion)
 - [Resumen General de Conceptos](#resumen-general-de-conceptos)
 - [Fase de Enumeración](#fase-de-enumeración)
+- [Exploración Aplicaciones Web](#exploración-páginas-web)
 - [Conclusiones](#conclusiones)
 
 ## Introducción {#introduccion}
@@ -53,6 +54,64 @@ Explico los nuevos parámetros:
 -p-: Se especifica que se buscarán todos los puertos, si se quiere un rango usar -p 600-1000 por ejemplo del 6000 al 10000 o -p-1000 que permite escanear solo los primeros 1000 puertos.
 
 -o: Manda la salida del comando a un fichero de salida, útil para repasar información ya obtenida o para otro software que permita usar estos datos para profundizar en análisis.
+
+Una vez realizado vemos lo siguiente:
+
+<img width="957" height="560" alt="image" src="https://github.com/user-attachments/assets/31c7cc62-bce8-46ab-9a78-ce4920530ddd" />
+
+Observamos una gran cantidad de información de 3 puertos abiertos en específico:
+
+- 22: SSH abierto donde nos muestra su versión y las claves hostkey
+
+- 80: Puerto HTTP abierto, con su versión 2.4.5.1
+
+- 443: Puerto HTTPs con una serie de datos de cabeceras y con dos datos interesantes de SSL, **dos hostname alternativos** llamados earth.local y terratest.earth.local
+
+Sin estos hostname es totalmente imposible seguir ya que no podemos entrar a la web que contiene ya que necesita que el sistema que quiera entrar esté con dicho DNS, podemos ver como rechaza la conexión aquí:
+
+<img width="1915" height="810" alt="image" src="https://github.com/user-attachments/assets/957adb4b-0a10-4ab7-b80a-5c885abc0415" />
+
+Para arreglar esto añadimos los hostname a nuestro fichero hosts en etc usando en mi caso nano (podeís usar cualquier otro).
+
+<img width="510" height="48" alt="image" src="https://github.com/user-attachments/assets/06478d71-511c-4020-a540-c581f5293761" />
+
+Esto lo que hará es hacer que al conectarnos a earth.local, nos podamos conectar a la 104 desde SSL permitiendo visualizar la web que haya por atrás.
+
+Una vez añadido nos vamos adentro de https://earth.local y veamos su contenido.
+
+## Exploración de las Páginas Web {#exploración-páginas-web}
+
+Abriendo earth.local, vemos esto:
+
+<img width="1918" height="900" alt="image" src="https://github.com/user-attachments/assets/6c661708-96a1-4875-bb0b-4288ba7ad8aa" />
+
+Vemos que nos aparece una web para mandar un mensaje a la Tierra y nos pide el mensaje y una clave para el mensaje, además podemos ver los anteriores mensajes encriptados.
+
+Si abrimos la terratest, nos aparece lo siguiente:
+
+<img width="1918" height="853" alt="image" src="https://github.com/user-attachments/assets/9d93e3c2-4276-4609-a595-ea778a1c1144" />
+
+Nos dirá que está en pruebas y que ignoremos la web.
+
+A simple vista no vemos nada en ninguna ni siquiera con el View Source
+
+<img width="1455" height="540" alt="image" src="https://github.com/user-attachments/assets/0918b615-0033-4075-b4ef-53408d2ddf13" />
+
+<img width="1252" height="237" alt="image" src="https://github.com/user-attachments/assets/3edaf341-21ea-4c7b-b030-3d150fe28f6e" />
+
+## Listado de Ficheros Internos {#listado-de-ficheros-internos}
+
+Existen varias formas de automatizar el proceso, investigando he encontrado la aplicación gobuster donde pasándole un simple diccionario de directorios es capaz de identificar de una web todo tipo de directorios que coincidan con el diccionario, al ser algo sencillo creo que puede ser de utilidad así que lo vamos a usar.
+
+Para ello nos bajamos alguno de estos diccionarios de esta página de Github:
+
+```
+https://github.com/danielmiessler/SecLists/tree/master/Discovery/Web-Content
+```
+En mi caso usaré el small de Dirbuster (similar a gobuster) pero también puede servir el big o el medium
+
+<img width="1180" height="622" alt="image" src="https://github.com/user-attachments/assets/94fc9af9-32fa-4c46-891d-f6a36560781f" />
+
 
 
 
