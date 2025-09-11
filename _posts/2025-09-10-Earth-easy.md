@@ -79,7 +79,7 @@ Esto lo que hará es hacer que al conectarnos a earth.local, nos podamos conecta
 
 Una vez añadido nos vamos adentro de https://earth.local y veamos su contenido.
 
-## Exploración de las Páginas Web {#exploración-páginas-web}
+## Exploración de las Páginas Web {#exploración-de-las-páginas-web}
 
 Abriendo earth.local, vemos esto:
 
