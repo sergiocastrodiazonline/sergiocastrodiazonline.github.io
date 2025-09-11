@@ -13,7 +13,8 @@ tags: [nmap,exploits,netdiscover,]
 - [Introducción](#introduccion)
 - [Resumen General de Conceptos](#resumen-general-de-conceptos)
 - [Fase de Enumeración](#fase-de-enumeración)
-- [Exploración Aplicaciones Web](#exploración-páginas-web)
+- [Exploración de las Páginas Web](#exploración-de-las-páginas-web)
+- [Listado de Ficheros Internos](#listado-de-ficheros-internos)
 - [Conclusiones](#conclusiones)
 
 ## Introducción {#introduccion}
@@ -29,8 +30,7 @@ Espero disfrutéis de la guía/lectura.
 
 ## Fase de Enumeración {#fase-de-enumeración}
 
-Normalmente empezaremos enumerando los puertos, sin embargo esta vez contamos con una pequeña desventaja con respecto a la vez anterior, la máquina no nos proporciona la IP por lo que tendremos que descubrirla,
-podemos utilizar ARP para ver la tabla de conexiones pero existe una tool que simplifica el trabajo, esta permite descubrir los hosts conectados a una red por una interfaz x. Se llama netdiscover y para averiguar la IP podemos usarla así:
+Normalmente empezaremos enumerando los puertos, sin embargo esta vez contamos con una pequeña desventaja con respecto a la vez anterior, la máquina no nos proporciona la IP por lo que tendremos que descubrirla, podemos utilizar ARP para ver la tabla de conexiones pero existe una tool que simplifica el trabajo, esta permite descubrir los hosts conectados a una red por una interfaz x. Se llama netdiscover y para averiguar la IP podemos usarla así:
 
 ```
 sudo netdiscover -r RED/MASCARA
