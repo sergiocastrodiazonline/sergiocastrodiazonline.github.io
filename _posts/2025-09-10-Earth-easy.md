@@ -103,17 +103,36 @@ A simple vista no vemos nada en ninguna ni siquiera con el View Source
 
 Existen varias formas de automatizar el proceso, investigando he encontrado la aplicación gobuster donde pasándole un simple diccionario de directorios es capaz de identificar de una web todo tipo de directorios que coincidan con el diccionario, al ser algo sencillo creo que puede ser de utilidad así que lo vamos a usar.
 
-Para ello nos bajamos alguno de estos diccionarios de esta página de Github:
-
-```
-https://github.com/danielmiessler/SecLists/tree/master/Discovery/Web-Content
-```
 En mi caso usaré el small de Dirbuster (similar a gobuster) pero también puede servir el big o el medium
 
 <img width="1180" height="622" alt="image" src="https://github.com/user-attachments/assets/94fc9af9-32fa-4c46-891d-f6a36560781f" />
 
+Descargamos el fichero y una vez descargados aplicamos el gobuster sobre earth.local a ver que descubrimos:
 
+```
+gobuster dir -u https://earth.local -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-small.txt
+```
+<img width="1077" height="440" alt="image" src="https://github.com/user-attachments/assets/a72e5295-3bb8-4b1c-b9e0-9cc7159d8c3e" />
 
+Una vez acabados podemos ver que ha encontrado un directorio oculto llamado /admin, si nos vamos a admin en la página nos aparecerá lo siguiente:
+
+<img width="1736" height="352" alt="image" src="https://github.com/user-attachments/assets/df09158f-cc9b-4645-a2b5-6758c8883c6d" />
+
+Nos aparecerá una herramienta de administración para usuarios admin, y si nos logeamos nos pedirá usuario y contraseña que no conocemos.
+
+<img width="1503" height="396" alt="image" src="https://github.com/user-attachments/assets/865f9da1-18a7-4476-baaa-ec6dacd0f577" />
+
+Vamos a intentar irnos al dominio terratest, que en principio no nos daba información, a ver si igualmente existen directorios ocultos con gobuster (esta vez con un diccionario de términos de web comunes como el .htaccess etc).
+
+```
+gobuster dir -u https://terratest.earth.local/ -k -w /usr/share/wordlists/dirb/common.txt
+```
+
+PD: El parámetro k es para evitar la verificación del certificado SSL (por lo que podemos usar https).
+
+Una vez terminado la búsqueda tenemos:
+
+<img width="871" height="448" alt="image" src="https://github.com/user-attachments/assets/befb7861-f4d7-4bcf-b0ba-27b9ba052c4f" />
 
 
 ## Conclusiones {#conclusiones}
