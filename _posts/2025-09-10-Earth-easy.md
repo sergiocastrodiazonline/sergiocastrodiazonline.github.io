@@ -15,6 +15,7 @@ tags: [nmap,exploits,netdiscover,]
 - [Fase de Enumeración](#fase-de-enumeración)
 - [Exploración de las Páginas Web](#exploración-de-las-páginas-web)
 - [Listado de Ficheros Internos](#listado-de-ficheros-internos)
+- [Desencriptando los Mensajes](#desencriptando-los-mensajes)
 - [Conclusiones](#conclusiones)
 
 ## Introducción {#introduccion}
@@ -133,6 +134,31 @@ PD: El parámetro k es para evitar la verificación del certificado SSL (por lo 
 Una vez terminado la búsqueda tenemos:
 
 <img width="871" height="448" alt="image" src="https://github.com/user-attachments/assets/befb7861-f4d7-4bcf-b0ba-27b9ba052c4f" />
+
+Nos lista los directorios encontrados en el diccionario y que coincide con el contenido existente en la web, aquí vemos que ha localizado el fichero robots.txt usado para indicar lo que no debe ser indexado. Veamos que contiene:
+
+<img width="1368" height="855" alt="image" src="https://github.com/user-attachments/assets/4bedb9b8-874e-4e70-90af-fd026fdef0c9" />
+
+Vemos una serie de extensiones y un nombre interesante: testingnotes, sabiendo que puede ser cualquiera de esa extensiones y usando la lógica podemos pensar que hay un fichero más oculto dentro de la web con ese nombre y con la extensión txt ya que podría es algo que se entiende con el nombre de notas, probemos con esa extensión y veremos que sucede:
+
+<img width="1187" height="377" alt="image" src="https://github.com/user-attachments/assets/1cfa6536-8770-4b66-b0fb-bc6e0a654e32" />
+
+Descubrimos la nota y vemos una serie de notas con pistas:
+
+- El usuario del panel de administración es terra
+- testdata.txt es usado para probar el sistema de encriptación de los mensajes y la clave se encuentra hay dentro.
+- Los mensajes son encriptados usando XOR.
+
+Sabiendo estas pistas veamos la clave en el fichero testdata:
+
+<img width="1918" height="315" alt="image" src="https://github.com/user-attachments/assets/c63dbc5c-93f9-42ce-8171-b8f87f8f40ba" />
+
+Vemos la clave que es un mensaje relacionado con el espacio. Ahora lo que haremos será pasar a la desencriptación del mensaje de earth.local una vez conocido el sistema que utiliza.
+
+## Desencriptando los Mensajes {#desencriptando-los-mensajes}
+
+Para hacerlo podemos usar multitud de herramientas, sin embargo yo voy a usar una muy conocida llamada cyberchef, que contiene multitud de algoritmos para encriptar y desencriptar mensajes.
+
 
 
 ## Conclusiones {#conclusiones}
