@@ -14,6 +14,8 @@ timezone: Europe/London
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
+google-site-verification: 3rjAboc_CK0Z-ifI7Kq6Tz3uaEAPKHAtY1bxmiLcI5Q
+
 title: S3rC4D1 # the main title
 
 tagline: CTF, Writeups & Vuln Apps # it will display as the subtitle
