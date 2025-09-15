@@ -1,4 +1,3 @@
-<img width="627" height="102" alt="image" src="https://github.com/user-attachments/assets/9b4319c2-1854-44c4-a6af-db0be304597a" /><img width="638" height="97" alt="image" src="https://github.com/user-attachments/assets/12972182-2b3b-4408-8ccc-162ef0c3d032" />---
 title : "Writeup - Earth Vulnhub | Sergio Castro"
 author: Sergi Castro
 date: 2025-09-10
