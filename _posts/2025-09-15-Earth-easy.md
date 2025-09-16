@@ -1,7 +1,7 @@
 ---
 title : "Writeup - Earth Vulnhub | Sergio Castro"
 author: Sergi Castro
-date: 2025-09-10
+date: 2025-09-15
 categories: [Vulnhub, Vulnhub-Linux, Vulnhub-Easy]
 tags: [nmap,exploits,netdiscover,netcat,binaries]
 ---
