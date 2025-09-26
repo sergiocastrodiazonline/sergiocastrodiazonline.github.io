@@ -31,6 +31,18 @@ Espero disfrutéis de la guía/lectura.
 
 ## Resumen General de Conceptos {#resumen-general-de-conceptos}
 
+- Aprendizaje de más flags de Nmap (ya mencionados en su apartado).
+
+- Modificación de /etc/hosts para poder conectar a páginas con resolución DNS.
+
+- Uso de Dirbuster, gobuster y otras herramientas para enumerar directorios ocultos web.
+
+- Uso de Cyberchef y/u otras herramientas para decodificar y codificar mensajes, hashes etc.
+
+- Codificación de shells reversas para saltar protecciones PHP y obtener conexión con máquinas remotas con netcat.
+
+- Envió y recibimiento de archivos a través de una shell reversa dentro de una shell ya creada.
+
 ## Fase de Enumeración {#fase-de-enumeración}
 
 Normalmente empezaremos enumerando los puertos, sin embargo esta vez contamos con una pequeña desventaja con respecto a la vez anterior, la máquina no nos proporciona la IP por lo que tendremos que descubrirla, podemos utilizar ARP para ver la tabla de conexiones pero existe una tool que simplifica el trabajo, esta permite descubrir los hosts conectados a una red por una interfaz x. Se llama netdiscover y para averiguar la IP podemos usarla así:
