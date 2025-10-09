@@ -30,7 +30,7 @@ El objetivo de esta máquina es obtener acceso al sistema principal y escalar lo
 Se realiza un reconocimiento inicial mediante **nmap** para descubrir los servicios activos en la máquina objetivo:
 
 ```
-nmap -p- sCV -Pn -n --min-rate 5000 <IPObjetivo>
+nmap -p- -sCV -Pn -n --min-rate 5000 <IPObjetivo>
 ```
 -	Flag -p- :  Escanea todos los puertos disponibles (1-65535).
 -	Flag sCV: Une el uso de -sC (scripts defecto) con -sV  (detección de versiones).
