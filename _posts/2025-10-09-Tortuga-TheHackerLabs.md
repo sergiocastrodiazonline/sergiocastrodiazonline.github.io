@@ -76,6 +76,41 @@ Si exploramos el directorio del usuario obtenemos la primera flag.
 
 Ahora bien ya dentro de la máquina, podemos hacer un reconocimiento mucho más amplio de forma interna, normalmente no podríamos porque necesitaríamos permisos, sin embargo el usuario grumete tiene permisos de lectura del fichero /etc/passwd.
 
+<img width="886" height="485" alt="imagen" src="https://github.com/user-attachments/assets/77a52406-5365-4ac6-afda-a14aecd5b9a3" />
+
+Vemos que entre los usuarios tenemos otro temático que es el de capitán lo cual es otro dato a apuntar.
+
 ## Escalado Horizontal {#escalado-horizontal}
 
+Listando los archivos ocultos con:
+
+```
+ls -la
+```
+Se encuentra una nota oculta en el “camarote”, escrita por el capitán. En ella, se revela la contraseña de su propio usuario.
+
+<img width="886" height="316" alt="imagen" src="https://github.com/user-attachments/assets/5911282e-c339-43bf-82e5-aa7b081e9e76" />
+
+Esto permite realizar un escalado horizontal, cambiando al usuario capitan sin aumentar privilegios globales, pero accediendo a nuevos recursos internos.
+
+## Escalado de Privilegios a Root {#escalado-de-privilegios-a-root}
+
+Ahora debemos escalar a root, podríamos listar los binarios SUID:
+
+```
+find / -perm -4000 2>/dev/null
+```
+<img width="886" height="297" alt="imagen" src="https://github.com/user-attachments/assets/01110b6c-af0a-40a7-803c-233028e305f3" />
+
+Investigando estas SUID no permiten escalado per existe otra alternativa, que es buscar las capabilities de Linux asignadas a los binarios.
+
+```
+Una capability es un atributo de seguridad que permite una gestión de privilegios dividiendo las poderosas funciones del usuario root (superusuario) en unidades discretas e independientes. En lugar de darle a un proceso o archivo todos los permisos de root, se le asignan solo las capacidades específicas que necesita para realizar una tarea privilegiada.
+```
+
+Existe un comando que permite buscarlas (de forma similar a los SUID):
+
+```
+getcap -r / 2>/dev/null
+```
 
