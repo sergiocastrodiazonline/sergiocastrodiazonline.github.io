@@ -16,7 +16,7 @@ timezone: Europe/London
 
 title: S3rC4D1 # the main title
 
-tagline: CTF, Writeups & Vuln Apps # it will display as the subtitle
+tagline: Writeups de un Hácker Ético # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   Website for my CTF, Writeups & Vuln Apps solutions
