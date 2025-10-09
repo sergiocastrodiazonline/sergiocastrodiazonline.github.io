@@ -150,9 +150,10 @@ El uso de herramientas como nmap, hydra y gtfobins resultó clave para progresar
 
 ## Resumen de Vulnerabilidades {#resumen-de-vulnerabilidades}
 
-| **Nombre Vulnerabilidad**          | **Qué Afecta**      | **Cómo se ha explotado**                              |
-| ---------------------------------- | ------------------- | ----------------------------------------------------- |
-| Credenciales débiles SSH           | Servicio SSH        | Ataque de fuerza bruta con Hydra usando `rockyou.txt` |
-| Exposición de información sensible | Archivos de usuario | Lectura de nota oculta con credenciales del capitán   |
-| Capabilities mal configuradas      | Binario Python 3.11 | Uso de `cap_setuid` para ejecutar código como root    |
+| **Nombre Vulnerabilidad**          | **Qué Afecta**      | **Cómo se ha explotado**                              | **Posibles soluciones / Mitigaciones** |
+| ---------------------------------- | ------------------- | ----------------------------------------------------- | ------------------------------------- |
+| Credenciales débiles SSH           | Servicio SSH        | Ataque de fuerza bruta con Hydra usando `rockyou.txt` | - Deshabilitar autenticación por contraseña; usar claves públicas y, si es posible, 2FA.<br>- Desactivar acceso root por contraseña (`PermitRootLogin no`) y restringir usuarios con `AllowUsers`/`AllowGroups`.<br>- Implementar rate limiting / fail2ban / bloqueo tras intentos fallidos; uso de bastion host o VPN para acceder a SSH.<br>- Forzar políticas de contraseñas fuertes y rotación; revisar cuentas inactivas. |
+| Exposición de información sensible | Archivos de usuario | Lectura de nota oculta con credenciales del capitán   | - Restringir permisos de ficheros/directorios (principio de menor privilegio).<br>- Cifrar datos sensibles en reposo (LUKS, filesystem encryption) y en tránsito (TLS).<br>- Eliminar secretos en texto plano; usar gestores de secretos o variables de entorno seguras.<br>- Auditoría y control de acceso (logs, SIEM) y rotación inmediata de credenciales comprometidas. |
+| Capabilities mal configuradas      | Binario Python 3.11 | Uso de `cap_setuid` para ejecutar código como root    | - Revocar capacidades innecesarias (`setcap -r`) y revisar `filecap` de binarios.<br>- Evitar usar binarios con capacidades de más alto privilegio; ejecutar con el menor privilegio posible (principio de least privilege).<br>- Recompilar/ajustar el binario para no requerir capacidades restrictivas; usar sudo con reglas controladas si es necesario.<br>- Aplicar controles de confinamiento (AppArmor/SELinux), habilitar auditoría (auditd) y monitoreo de integridad. |
+
 
