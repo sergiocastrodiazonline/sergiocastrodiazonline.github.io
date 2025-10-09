@@ -114,3 +114,45 @@ Existe un comando que permite buscarlas (de forma similar a los SUID):
 getcap -r / 2>/dev/null
 ```
 
+<img width="886" height="130" alt="imagen" src="https://github.com/user-attachments/assets/aabd70b2-dae7-42c1-8712-34477260219b" />
+
+
+El resultado muestra que Python 3.11 tiene asignada la capability cap_setuid=ep, lo que permite cambiar el UID de un proceso.
+
+Esto posibilita ejecutar código Python con privilegios de root:
+
+```
+/usr/bin/python3.11 -c 'import os; os.setuid(0); os.system("/bin/bash")'
+```
+
+- os.setuid(0): cambia el UID a 0 (root).
+
+- os.system("/bin/bash"): abre una shell con privilegios root.
+
+Este comando se ha extraído de:
+
+```
+https://gtfobins.github.io/gtfobins/python/ 
+```
+
+Gtfobins es una web que lista los diferentes binarios de Linux que permiten realizar escalamiento de permisos en los sistemas.
+
+<img width="886" height="212" alt="imagen" src="https://github.com/user-attachments/assets/e1718a30-304c-4b95-872d-ae555aa64d27" />
+
+Finalmente, se accede al directorio /root para leer la flag final.
+
+<img width="886" height="103" alt="imagen" src="https://github.com/user-attachments/assets/da9a61ef-c285-4837-9052-03d75dae530c" />
+
+## Conclusiones {#conclusiones}
+
+Esta máquina refuerza conceptos esenciales en enumeración, fuerza bruta, escalado horizontal y explotación de capabilities en Linux.
+El uso de herramientas como nmap, hydra y gtfobins resultó clave para progresar desde un acceso básico hasta obtener privilegios de superusuario
+
+## Resumen de Vulnerabilidades {#resumen-de-vulnerabilidades}
+
+| **Nombre Vulnerabilidad**          | **Qué Afecta**      | **Cómo se ha explotado**                              |
+| ---------------------------------- | ------------------- | ----------------------------------------------------- |
+| Credenciales débiles SSH           | Servicio SSH        | Ataque de fuerza bruta con Hydra usando `rockyou.txt` |
+| Exposición de información sensible | Archivos de usuario | Lectura de nota oculta con credenciales del capitán   |
+| Capabilities mal configuradas      | Binario Python 3.11 | Uso de `cap_setuid` para ejecutar código como root    |
+
